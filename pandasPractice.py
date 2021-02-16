@@ -24,6 +24,7 @@ Third Part: Challenge yourself
 """
 
 import pandas as pd
+import openpyxl
 
 class xlsxData():
     
@@ -45,31 +46,30 @@ class xlsxData():
    def getFilteredDf (self, column, value):
       return self.data[self.data[column].eq(value)]
 
-   def mergeDf (self, data):
+   def intersectDf (self, data):
       return self.data.merge(data, how='inner')
 
 
+def saveDf (df, file):
+   df.to_excel(file) 
 
 if __name__ == '__main__':
    nba = xlsxData() # Create the DataFrame object
 
-   nba.readData('./nba.xlsx') # 0 Read nba.xlsx
+   nba.readData("./nba.xlsx") # 0 Read nba.xlsx
 
    nba.printData() # 1 Print all the data
 
-   nba.getColumnDf('Salary') # 2 Get one column as DataFrame
+   nba.getColumnDf("Salary") # 2 Get one column as DataFrame
 
-   nba.getColumnArray('Team') # 3 Get one column as numpy array to use less memory than a list
+   nba.getColumnArray("Team") # 3 Get one column as numpy array to use less memory than a list
 
-   nba.getFilteredDf( 'Team', 'Boston Celtics') # 4 Get sub-dataframe filtered by a column value
-
+   nba.getFilteredDf( "Team", "Boston Celtics") # 4 Get sub-dataframe filtered by a column value
 
    nba2 = xlsxData() # Create the DataFrame object
 
-   nba2.readData('./nba2.xlsx') # Read nba2.xlsx
+   nba2.readData("./nba2.xlsx") # Read nba2.xlsx
 
-   print(nba.shape)
-
-   nba.mergeDf(nba2.data) # 5 Merge nba2 dataframe
-
+   nba.intersectDf(nba2.data) # 5 Merge nba2 dataframe using inner join (intersection)
    
+   saveDf(nba.data, "output.xlsx") # 6 Save as an excel file
