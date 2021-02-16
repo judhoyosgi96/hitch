@@ -1,4 +1,3 @@
-
 """
 Second Part: Create your code.
 
@@ -23,3 +22,54 @@ Third Part: Challenge yourself
             in Postgresql that uses the methods for processing
             developed with pandas.
 """
+
+import pandas as pd
+
+class xlsxData():
+    
+   def __init__(self):
+      self.data = pd.DataFrame()
+
+   def readData(self, file):
+      self.data = pd.read_excel(file)
+
+   def printData(self):
+      print(self.data.to_string())
+
+   def getColumnDf(self, column):
+      return self.data[[column]]
+
+   def getColumnArray(self, column):
+      return self.data[column].values
+
+   def getFilteredDf (self, column, value):
+      return self.data[self.data[column].eq(value)]
+
+   def mergeDf (self, data):
+      return self.data.merge(data, how='inner')
+
+
+
+if __name__ == '__main__':
+   nba = xlsxData() # Create the DataFrame object
+
+   nba.readData('./nba.xlsx') # 0 Read nba.xlsx
+
+   nba.printData() # 1 Print all the data
+
+   nba.getColumnDf('Salary') # 2 Get one column as DataFrame
+
+   nba.getColumnArray('Team') # 3 Get one column as numpy array to use less memory than a list
+
+   nba.getFilteredDf( 'Team', 'Boston Celtics') # 4 Get sub-dataframe filtered by a column value
+
+
+   nba2 = xlsxData() # Create the DataFrame object
+
+   nba2.readData('./nba2.xlsx') # Read nba2.xlsx
+
+   print(nba.shape)
+
+   nba.mergeDf(nba2.data) # 5 Merge nba2 dataframe
+
+   

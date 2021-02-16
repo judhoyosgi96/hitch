@@ -20,7 +20,7 @@ class failingClass():
         addNewList - this method adds 4 new elements to the instance list
                      aList
         """
-        self.aList.append([6, 7, 8, 9])
+        self.aList.extend([6, 7, 8, 9]) #fix: use extend method to join both lists
     
     def checkKey(self, key):
         """
@@ -30,10 +30,10 @@ class failingClass():
 
         Return: True if key exists, False otherwise
         """
-        if self.aDict[key] is None:
-            return False
+        if key in self.aDict : #fix: check if key is in aDict keys
+            return True
         
-        return True
+        return False
 
     def sumOfThree(self, a, b, c):
         """
@@ -50,9 +50,7 @@ class failingClass():
                     key-values from the dictionary numbers.
         @numbers: dictionary to be use to fill the instance dictionary
         """
-        aDict = numbers
-
-
+        self.aDict.update(numbers) #fix: merge numbers dict into aDict
 
 
 if __name__ == '__main__':
@@ -71,10 +69,12 @@ if __name__ == '__main__':
 
     numbers = {'a': 1, 'b': 2, 'c': 3}
 
-    result = letsee.sumOfThree(numbers)
+    result = letsee.sumOfThree(**numbers) #fix: pass numbers dict as kwargs
 
     # This should print "6"   -> 1 + 2 + 3
     print(result)
 
     letsee.fillaDict(numbers)
+
+    print(letsee.aDict)
 
