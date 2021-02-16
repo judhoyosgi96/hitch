@@ -24,7 +24,6 @@ Third Part: Challenge yourself
 """
 
 import pandas as pd
-import openpyxl
 
 class xlsxData():
     
