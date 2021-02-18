@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import CompanyView
+from .views import DatasetView
 
 urlpatterns = [
-    path('company/', CompanyView.as_view(), name='company_list'),
+    path('dataset/', DatasetView.as_view(), name='dataset_list'),
 ]
